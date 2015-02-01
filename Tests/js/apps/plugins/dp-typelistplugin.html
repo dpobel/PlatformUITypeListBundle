@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<title>DP Type List Plugin tests</title>
+</head>
+<body>
+
+<script type="text/javascript" src="/Tests/vendors/yui3/build/yui/yui.js"></script>
+<script type="text/javascript" src="/Tests/vendors/eZPlatformUI/Tests/js/assets/pluginregister-tests.js"></script>
+<script type="text/javascript" src="./assets/dp-typelistplugin-tests.js"></script>
+<script>
+    var filter = (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
+        basePlatform = '/Tests/vendors/eZPlatformUI/Resources/public/js/',
+        loaderFilter;
+
+    if (filter == 'coverage'){
+        loaderFilter = {
+            searchExp : '/../Resources/public/js/',
+            replaceStr: '/../Tests/instrument/Resources/public/js/'
+        };
+    } else {
+        loaderFilter = filter;
+    }
+
+    YUI({
+        coverage: ['dp-typelistplugin'],
+        filter: loaderFilter,
+        modules: {
+            "dp-typelistplugin": {
+                requires: ['plugin', 'base', 'ez-pluginregistry'],
+                fullpath: "../../../../Resources/public/js/apps/plugins/dp-typelistplugin.js"
+            },
+            "ez-pluginregistry": {
+                requires: ['array-extras'],
+                fullpath: basePlatform + "services/ez-pluginregistry.js"
+            },
+        }
+    }).use('dp-typelistplugin-tests', function (Y) {
+        Y.Test.Runner.run();
+    });
+</script>
+</body>
+</html>
