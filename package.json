@@ -1,0 +1,26 @@
+{
+  "name": "DPPlatformUITypeListBundle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dpobel/PlatformUITypeListBundle.git"
+  },
+  "author": "Damien Pobel <damien@pobel.fr>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/dpobel/PlatformUITypeListBundle/issues"
+  },
+  "homepage": "https://github.com/dpobel/PlatformUITypeListBundle",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-istanbul": "^0.4.0",
+    "grunt-shell": "^1.1.1"
+  }
+}
