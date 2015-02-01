@@ -1,1 +1,15 @@
 system:
+    default:
+        yui:
+            modules:
+                dp-typelistplugin:
+                    requires: ['ez-pluginregistry', 'plugin', 'base']
+                    dependencyOf: ['ez-platformuiapp']
+                    path: %dp_typelist.public_dir%/js/apps/plugins/dp-typelistplugin.js
+                dp-typelistview:
+                    requires: ['ez-templatebasedview', 'dptypelistview-ez-template']
+                    dependencyOf: ['ez-platformuiapp']
+                    path: %dp_typelist.public_dir%/js/views/dp-typelistview.js
+                dptypelistview-ez-template:
+                    type: 'template'
+                    path: %dp_typelist.public_dir%/templates/typelist.hbt

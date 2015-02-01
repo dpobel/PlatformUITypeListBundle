@@ -37,6 +37,10 @@ class DPPlatformUITypeListExtension extends Extension implements PrependExtensio
 
     private function prependYui( ContainerBuilder $container )
     {
+        $container->setParameter(
+            'dp_typelist.public_dir',
+            'bundles/dpplatformuitypelist'
+        );
         $yuiConfigFile = __DIR__ . '/../Resources/config/yui.yml';
         $config = Yaml::parse( file_get_contents( $yuiConfigFile ) );
         $container->prependExtensionConfig( 'ez_platformui', $config );
