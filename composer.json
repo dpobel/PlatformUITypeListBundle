@@ -1,0 +1,12 @@
+{
+    "name": "dp/platform-ui-type-list-bundle",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Damien Pobel",
+            "email": "damien@pobel.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
