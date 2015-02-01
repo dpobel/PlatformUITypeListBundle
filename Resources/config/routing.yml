@@ -1,0 +1,3 @@
+dp_platform_ui_type_list_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: DPPlatformUITypeListBundle:Default:index }
