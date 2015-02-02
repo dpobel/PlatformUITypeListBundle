@@ -1,6 +1,20 @@
 YUI.add('dp-typelistplugin', function (Y) {
+    /**
+     * Provides the type list plugin
+     *
+     * @module dp-typelistplugin
+     */
     Y.namespace('DP.Plugin');
 
+    /**
+     * The type list plugin. It adds the type list view and route to the
+     * application.
+     *
+     * @namespace eZ.Plugin
+     * @class TypeListPlugin
+     * @constructor
+     * @extends Plugin.Base
+     */
     Y.DP.Plugin.TypeListPlugin = Y.Base.create('dpTypeListPlugin', Y.Plugin.Base, [], {
         initializer: function () {
             var app = this.get('host');
