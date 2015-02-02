@@ -1,1 +1,5 @@
 /vendor/
+Tests/instrument/
+Tests/report/
+Tests/vendors/
+node_modules
