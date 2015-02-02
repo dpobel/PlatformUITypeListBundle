@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) Damien Pobel. All rights reserved.
+ * For full copyright and license information view LICENSE file distributed with this source code.
+ */
 YUI.add('dp-typelistview', function (Y) {
     Y.namespace('DP');
 
