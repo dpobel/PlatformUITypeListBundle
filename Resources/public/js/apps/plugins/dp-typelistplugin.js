@@ -14,7 +14,7 @@ YUI.add('dp-typelistplugin', function (Y) {
      * The type list plugin. It adds the type list view and route to the
      * application.
      *
-     * @namespace eZ.Plugin
+     * @namespace DP.Plugin
      * @class TypeListPlugin
      * @constructor
      * @extends Plugin.Base
@@ -30,6 +30,7 @@ YUI.add('dp-typelistplugin', function (Y) {
                 name: 'dpTypeList',
                 path: '/dp/typelist',
                 view: 'dpTypeListView',
+                service: Y.DP.TypeListViewService,
                 sideViews: {'navigationHub': true},
                 callbacks: ['open', 'checkUser', 'handleSideViews', 'handleMainView'],
             });
