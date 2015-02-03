@@ -3,9 +3,12 @@ system:
         yui:
             modules:
                 dp-typelistplugin:
-                    requires: ['ez-pluginregistry', 'plugin', 'base']
+                    requires: ['ez-pluginregistry', 'plugin', 'base', 'dp-typelistviewservice', 'dp-typelistview']
                     dependencyOf: ['ez-platformuiapp']
                     path: %dp_typelist.public_dir%/js/apps/plugins/dp-typelistplugin.js
+                dp-typelistviewservice:
+                    requires: ['ez-viewservice', 'ez-contenttypegroupmodel', 'ez-contenttypemodel']
+                    path: %dp_typelist.public_dir%/js/views/services/dp-typelistviewservice.js
                 dp-typelistview:
                     requires: ['ez-templatebasedview', 'dptypelistview-ez-template']
                     dependencyOf: ['ez-platformuiapp']

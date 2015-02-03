@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<title>DP Type List View Service tests</title>
+</head>
+<body>
+
+<script type="text/javascript" src="/Tests/vendors/yui3/build/yui/yui.js"></script>
+<script type="text/javascript" src="./assets/dp-typelistviewservice-tests.js"></script>
+<script>
+    var filter = (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
+        basePlatform = '/Tests/vendors/eZPlatformUI/Resources/public/js/',
+        loaderFilter;
+
+    if (filter == 'coverage'){
+        loaderFilter = {
+            searchExp : '/../Resources/public/js/',
+            replaceStr: '/../Tests/instrument/Resources/public/js/'
+        };
+    } else {
+        loaderFilter = filter;
+    }
+
+    YUI({
+        coverage: ['dp-typelistviewservice'],
+        filter: loaderFilter,
+        modules: {
+            "dp-typelistviewservice": {
+                requires: ['ez-viewservice', 'ez-contenttypemodel', 'ez-contenttypegroupmodel'],
+                fullpath: "../../../../Resources/public/js/views/services/dp-typelistviewservice.js"
+            },
+            "ez-viewservice": {
+                requires: ['base', 'parallel'],
+                fullpath: basePlatform + "views/services/ez-viewservice.js"
+            },
+            'ez-contenttypegroupmodel': {
+                requires: ['ez-restmodel', 'ez-contenttypemodel'],
+                fullpath: basePlatform + 'models/ez-contenttypegroupmodel.js'
+            },
+            'ez-contenttypemodel': {
+                requires: ['ez-restmodel'],
+                fullpath: basePlatform + 'models/ez-contenttypemodel.js'
+            },
+            'ez-restmodel': {
+                requires: ['model'],
+                fullpath: basePlatform + 'models/ez-restmodel.js'
+            },
+
+        }
+    }).use('dp-typelistviewservice-tests', function (Y) {
+        Y.Test.Runner.run();
+    });
+</script>
+</body>
+</html>

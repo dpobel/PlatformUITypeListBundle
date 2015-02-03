@@ -30,6 +30,7 @@ YUI.add('dp-typelistplugin', function (Y) {
                 name: 'dpTypeList',
                 path: '/dp/typelist',
                 view: 'dpTypeListView',
+                service: Y.DP.TypeListViewService,
                 sideViews: {'navigationHub': true},
                 callbacks: ['open', 'checkUser', 'handleSideViews', 'handleMainView'],
             });

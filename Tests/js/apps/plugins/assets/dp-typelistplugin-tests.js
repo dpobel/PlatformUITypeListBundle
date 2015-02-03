@@ -21,6 +21,7 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
                 },
             });
             Y.DP.TypeListView = function () {};
+            Y.DP.TypeListViewService = function () {};
             this.plugin = new Y.DP.Plugin.TypeListPlugin({
                 host: this.app
             });
@@ -31,13 +32,14 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
             delete this.plugin;
             delete this.app;
             delete Y.DP.TypeListView;
+            delete Y.DP.TypeListViewService;
         },
 
         "Should add the type list route": function () {
             var route = this.route;
 
             Mock.verify(this.app);
-            Assert.areEqual(5, Y.Object.keys(route).length);
+            Assert.areEqual(6, Y.Object.keys(route).length);
             Assert.areEqual(
                 'dpTypeList', route.name,
                 "The route should be named dpTypeList"
@@ -49,6 +51,10 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
             Assert.areEqual(
                 'dpTypeListView', route.view,
                 "The route should use the dpTypeListView view"
+            );
+            Assert.areSame(
+                Y.DP.TypeListViewService, route.service,
+                "The type list route should be configured to use type list view service"
             );
             Assert.isTrue(
                 route.sideViews.navigationHub,

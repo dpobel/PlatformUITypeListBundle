@@ -3,6 +3,7 @@ module.exports = function(grunt) {
         instrumentDir = "./Tests/instrument",
         sourceFiles = [
             "./Resources/public/js/apps/plugins/*.js",
+            "./Resources/public/js/views/services/*.js",
             "./Resources/public/js/views/*.js",
         ],
         testFiles = [
