@@ -1,1 +1,6 @@
 system:
+    default:
+        css:
+            files:
+                - '@DPPlatformUITypeListBundle/Resources/public/css/views/typelist.css'
+                - '@DPPlatformUITypeListBundle/Resources/public/css/theme/views/typelist.css'

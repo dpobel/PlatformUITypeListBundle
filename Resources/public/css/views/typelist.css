@@ -1,0 +1,29 @@
+/*
+ * Copyright (C) Damien Pobel. All rights reserved.
+ * For full copyright and license information view LICENSE file distributed with this source code.
+ */
+
+.ez-view-dptypelistview {
+    background: #fff;
+}
+
+.dp-typelist-options {
+    padding: 1em;
+}
+
+.dp-typelist-options .dp-typelist-options-title {
+    margin: 0;
+}
+
+.dp-typelist-option .dp-typelist-option-label {
+    display: block;
+}
+
+.dp-typelist-option .dp-typelist-option-list {
+    display: block;
+    max-width: 100%;
+}
+
+.dp-typelist-option, .dp-typelist-tools {
+    margin: 1em 0;
+}

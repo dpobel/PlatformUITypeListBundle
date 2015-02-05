@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <title>Type list view tests</title>
+</head>
+<body>
+
+<div class="container"></div>
+
+<script type="text/x-handlebars-template" id="dptypelistview-ez-template">
+template
+</script>
+
+<script type="text/javascript" src="/Tests/vendors/yui3/build/yui/yui.js"></script>
+<script type="text/javascript" src="./assets/dp-typelistview-tests.js"></script>
+<script>
+    var filter = (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
+        basePlatform = '/Tests/vendors/eZPlatformUI/Resources/public/js/',
+        loaderFilter;
+
+    if (filter == 'coverage'){
+        loaderFilter = {
+            searchExp : '/../Resources/public/js/',
+            replaceStr: '/../Tests/instrument/Resources/public/js/'
+        };
+    } else {
+        loaderFilter = filter;
+    }
+
+    YUI({
+        coverage: ['dp-typelistview'],
+        filter: loaderFilter,
+        modules: {
+            "dp-typelistview": {
+                requires: ['ez-templatebasedview'],
+                fullpath: "../../../Resources/public/js/views/dp-typelistview.js"
+            },
+            "ez-templatebasedview": {
+                requires: ['ez-view', 'handlebars', 'template'],
+                fullpath: basePlatform + "views/ez-templatebasedview.js"
+            },
+            "ez-view": {
+                requires: ['view', 'base-pluginhost', 'ez-pluginregistry'],
+                fullpath: basePlatform + "views/ez-view.js"
+            },
+            "ez-pluginregistry": {
+                requires: ['array-extras'],
+                fullpath: basePlatform + "services/ez-pluginregistry.js"
+            },
+        }
+    }).use('dp-typelistview-tests', function (Y) {
+        Y.Test.Runner.run();
+    });
+</script>
+</body>
+</html>
