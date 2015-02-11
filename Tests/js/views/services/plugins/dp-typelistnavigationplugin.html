@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<title>DP Type List Navigation Plugin tests</title>
+</head>
+<body>
+
+<script type="text/javascript" src="/Tests/vendors/yui3/build/yui/yui.js"></script>
+<script type="text/javascript" src="/Tests/vendors/eZPlatformUI/Tests/js/assets/pluginregister-tests.js"></script>
+<script type="text/javascript" src="./assets/dp-typelistnavigationplugin-tests.js"></script>
+<script>
+    var filter = (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
+        basePlatform = '/Tests/vendors/eZPlatformUI/Resources/public/js/',
+        loaderFilter;
+
+    if (filter == 'coverage'){
+        loaderFilter = {
+            searchExp : '/../Resources/public/js/',
+            replaceStr: '/../Tests/instrument/Resources/public/js/'
+        };
+    } else {
+        loaderFilter = filter;
+    }
+
+    YUI({
+        coverage: ['dp-typelistnavigationplugin'],
+        filter: loaderFilter,
+        modules: {
+            "dp-typelistnavigationplugin": {
+                requires: ['ez-viewservicebaseplugin', 'ez-pluginregistry'],
+                fullpath: "../../../../../Resources/public/js/views/services/plugins/dp-typelistnavigationplugin.js"
+            },
+            "ez-viewservicebaseplugin": {
+                requires: ['plugin', 'base'],
+                fullpath: basePlatform + "views/services/plugins/ez-viewservicebaseplugin.js"
+            },
+            "ez-pluginregistry": {
+                requires: ['array-extras'],
+                fullpath: basePlatform + "services/ez-pluginregistry.js"
+            },
+        }
+    }).use('dp-typelistnavigationplugin-tests', function (Y) {
+        Y.Test.Runner.run();
+    });
+</script>
+</body>
+</html>
