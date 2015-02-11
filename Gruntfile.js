@@ -4,6 +4,7 @@ module.exports = function(grunt) {
         sourceFiles = [
             "./Resources/public/js/apps/plugins/*.js",
             "./Resources/public/js/views/services/*.js",
+            "./Resources/public/js/views/services/plugins/*.js",
             "./Resources/public/js/views/*.js",
         ],
         testFiles = [
@@ -26,7 +27,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         shell: {
             grover: {
-                command: 'grover --server -o "' + reportDir + '/junit.xml" --junit Tests/js/*/*.html Tests/js/*/*/*.html',
+                command: 'grover --server -o "' + reportDir + '/junit.xml" --junit Tests/js/*/*.html Tests/js/*/*/*.html Tests/js/*/*/*/*.html',
                 options: {
                     stdout: true,
                     stderr: true,
@@ -34,7 +35,7 @@ module.exports = function(grunt) {
                 }
             },
             groverCoverage: {
-                command: 'grover --server --coverage --coverdir "' + reportDir + '" -S "?filter=coverage" Tests/js/*/*.html Tests/js/*/*/*.html',
+                command: 'grover --server --coverage --coverdir "' + reportDir + '" -S "?filter=coverage" Tests/js/*/*.html Tests/js/*/*/*.html Tests/js/*/*/*/*.html',
                 options: {
                     stdout: true,
                     stderr: true,

@@ -2,6 +2,10 @@ system:
     default:
         yui:
             modules:
+                dp-typelistnavigationplugin:
+                    requires: ['ez-pluginregistry', 'ez-viewservicebaseplugin', 'ez-navigationitemview']
+                    dependencyOf: ['ez-navigationhubviewservice']
+                    path: %dp_typelist.public_dir%/js/views/services/plugins/dp-typelistnavigationplugin.js
                 dp-typelistplugin:
                     requires: ['ez-pluginregistry', 'plugin', 'base', 'dp-typelistviewservice', 'dp-typelistview']
                     dependencyOf: ['ez-platformuiapp']
