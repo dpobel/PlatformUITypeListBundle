@@ -1,9 +1,9 @@
-YUI.add('dp-typelistview-tests', function (Y) {
+YUI.add('dp-typelistoptionsview-tests', function (Y) {
     var viewTest,
         Assert = Y.Assert, Mock = Y.Mock;
 
     viewTest = new Y.Test.Case({
-        name: "Type list view test",
+        name: "Type list options view test",
 
         setUp: function () {
             this.group1 = new Mock();
@@ -20,7 +20,7 @@ YUI.add('dp-typelistview-tests', function (Y) {
                 returns: {},
             });
 
-            this.view = new Y.DP.TypeListView({
+            this.view = new Y.DP.TypeListOptionsView({
                 container: '.container',
                 contentTypeGroups: this.contentTypeGroups,
             });
@@ -123,11 +123,10 @@ YUI.add('dp-typelistview-tests', function (Y) {
             Mock.verify(this.type1);
             Mock.verify(this.type2);
         },
-
     });
 
-    Y.Test.Runner.setName("Type list view");
+    Y.Test.Runner.setName("Type list options view");
     Y.Test.Runner.add(viewTest);
 }, '', {
-    requires: ['test', 'dp-typelistview']
+    requires: ['test', 'dp-typelistoptionsview']
 });

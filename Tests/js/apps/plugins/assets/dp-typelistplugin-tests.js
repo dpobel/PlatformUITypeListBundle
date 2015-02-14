@@ -11,6 +11,7 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
 
             this.app = new Mock();
             this.app.views = {};
+            this.app.sideViews = {};
             this.route = {};
 
             Mock.expect(this.app, {
@@ -22,6 +23,8 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
             });
             Y.DP.TypeListView = function () {};
             Y.DP.TypeListViewService = function () {};
+            Y.DP.TypeListOptionsView = function () {};
+            Y.DP.TypeListOptionsViewService = function () {};
             this.plugin = new Y.DP.Plugin.TypeListPlugin({
                 host: this.app
             });
@@ -33,6 +36,25 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
             delete this.app;
             delete Y.DP.TypeListView;
             delete Y.DP.TypeListViewService;
+            delete Y.DP.TypeListOptionsView;
+            delete Y.DP.TypeListOptionsViewService;
+        },
+
+        "Should add the type list options side view": function () {
+            Assert.isObject(
+                this.app.sideViews.dpTypeListOptions,
+                "The dpTypeListOptions side view should be configured"
+            );
+            Assert.areSame(
+                Y.DP.TypeListOptionsView,
+                this.app.sideViews.dpTypeListOptions.type,
+                "The dpTypeListOptions side view should be configured to use the DP.TypeListOptionsView"
+            );
+            Assert.areSame(
+                Y.DP.TypeListOptionsViewService,
+                this.app.sideViews.dpTypeListOptions.service,
+                "The dpTypeListOptions side view should be configured to use the DP.TypeListOptionsViewService"
+            );
         },
 
         "Should add the type list route": function () {
@@ -60,9 +82,13 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
                 route.sideViews.navigationHub,
                 "The route should be configured to use the navigationHub"
             );
+            Assert.isTrue(
+                route.sideViews.dpTypeListOptions,
+                "The route should be configured to use the dpTypeListOptions"
+            );
             Assert.areEqual(
-                1, Y.Object.keys(route.sideViews).length,
-                "The route should be configured to use the navigationHub"
+                2, Y.Object.keys(route.sideViews).length,
+                "The route should be configured to use the navigationHub and the dpTypeListOptions"
             );
             Assert.areEqual(
                 4, route.callbacks.length,

@@ -1,14 +1,14 @@
-YUI.add('dp-typelistviewservice-tests', function (Y) {
+YUI.add('dp-typelistoptionsviewservice-tests', function (Y) {
     var getViewParametersTest,
         loadTest,
         Mock = Y.Mock,
         Assert = Y.Assert;
 
     getViewParametersTest = new Y.Test.Case({
-        name: "Type list view service getViewParameters test",
+        name: "Type list options view service getViewParameters test",
 
         setUp: function () {
-            this.service = new Y.DP.TypeListViewService();
+            this.service = new Y.DP.TypeListOptionsViewService();
         },
 
         tearDown: function () {
@@ -36,12 +36,12 @@ YUI.add('dp-typelistviewservice-tests', function (Y) {
     });
 
     loadTest = new Y.Test.Case({
-        name: "Type list view service load test",
+        name: "Type list options view service load test",
 
         setUp: function () {
             this.capi = new Mock();
             this.typeService = new Mock();
-            this.service = new Y.DP.TypeListViewService({
+            this.service = new Y.DP.TypeListOptionsViewService({
                 capi: this.capi,
             });
 
@@ -216,9 +216,9 @@ YUI.add('dp-typelistviewservice-tests', function (Y) {
         },
     });
 
-    Y.Test.Runner.setName("Type list view service");
+    Y.Test.Runner.setName("Type list options view service");
     Y.Test.Runner.add(getViewParametersTest);
     Y.Test.Runner.add(loadTest);
 }, '', {
-    requires: ['test', 'dp-typelistviewservice']
+    requires: ['test', 'dp-typelistoptionsviewservice']
 });
