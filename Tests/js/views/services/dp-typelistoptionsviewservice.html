@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
 <head>
-<title>DP Type List View Service tests</title>
+<title>DP Type List Options View Service tests</title>
 </head>
 <body>
 
 <script type="text/javascript" src="/Tests/vendors/yui3/build/yui/yui.js"></script>
-<script type="text/javascript" src="./assets/dp-typelistviewservice-tests.js"></script>
+<script type="text/javascript" src="./assets/dp-typelistoptionsviewservice-tests.js"></script>
 <script>
     var filter = (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
         basePlatform = '/Tests/vendors/eZPlatformUI/Resources/public/js/',
@@ -22,12 +22,12 @@
     }
 
     YUI({
-        coverage: ['dp-typelistviewservice'],
+        coverage: ['dp-typelistoptionsviewservice'],
         filter: loaderFilter,
         modules: {
-            "dp-typelistviewservice": {
+            "dp-typelistoptionsviewservice": {
                 requires: ['ez-viewservice', 'ez-contenttypemodel', 'ez-contenttypegroupmodel'],
-                fullpath: "../../../../Resources/public/js/views/services/dp-typelistviewservice.js"
+                fullpath: "../../../../Resources/public/js/views/services/dp-typelistoptionsviewservice.js"
             },
             "ez-viewservice": {
                 requires: ['base', 'parallel'],
@@ -47,7 +47,7 @@
             },
 
         }
-    }).use('dp-typelistviewservice-tests', function (Y) {
+    }).use('dp-typelistoptionsviewservice-tests', function (Y) {
         Y.Test.Runner.run();
     });
 </script>

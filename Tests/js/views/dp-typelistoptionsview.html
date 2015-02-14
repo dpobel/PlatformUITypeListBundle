@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
 <head>
-    <title>Type list view tests</title>
+    <title>Type list options view tests</title>
 </head>
 <body>
 
 <div class="container"></div>
 
-<script type="text/x-handlebars-template" id="dptypelistview-ez-template">
+<script type="text/x-handlebars-template" id="dptypelistoptionsview-ez-template">
 template
 </script>
 
 <script type="text/javascript" src="/Tests/vendors/yui3/build/yui/yui.js"></script>
-<script type="text/javascript" src="./assets/dp-typelistview-tests.js"></script>
+<script type="text/javascript" src="./assets/dp-typelistoptionsview-tests.js"></script>
 <script>
     var filter = (window.location.search.match(/[?&]filter=([^&]+)/) || [])[1] || 'raw',
         basePlatform = '/Tests/vendors/eZPlatformUI/Resources/public/js/',
@@ -31,9 +31,9 @@ template
         coverage: ['dp-typelistview'],
         filter: loaderFilter,
         modules: {
-            "dp-typelistview": {
+            "dp-typelistoptionsview": {
                 requires: ['ez-templatebasedview'],
-                fullpath: "../../../Resources/public/js/views/dp-typelistview.js"
+                fullpath: "../../../Resources/public/js/views/dp-typelistoptionsview.js"
             },
             "ez-templatebasedview": {
                 requires: ['ez-view', 'handlebars', 'template'],
@@ -48,7 +48,7 @@ template
                 fullpath: basePlatform + "services/ez-pluginregistry.js"
             },
         }
-    }).use('dp-typelistview-tests', function (Y) {
+    }).use('dp-typelistoptionsview-tests', function (Y) {
         Y.Test.Runner.run();
     });
 </script>

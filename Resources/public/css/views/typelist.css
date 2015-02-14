@@ -4,6 +4,8 @@
  */
 
 .ez-view-dptypelistview {
+    padding: 1em;
+    min-height: 800px;
     background: #fff;
 }
 

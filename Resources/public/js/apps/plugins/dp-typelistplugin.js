@@ -23,6 +23,13 @@ YUI.add('dp-typelistplugin', function (Y) {
         initializer: function () {
             var app = this.get('host');
 
+            app.sideViews.dpTypeListOptions = {
+                type: Y.DP.TypeListOptionsView,
+                service: Y.DP.TypeListOptionsViewService,
+                container: '.ez-menu-container',
+                hideClass: "is-menu-hidden",
+            };
+
             app.views.dpTypeListView = {
                 type: Y.DP.TypeListView,
             };
@@ -31,7 +38,7 @@ YUI.add('dp-typelistplugin', function (Y) {
                 path: '/dp/typelist',
                 view: 'dpTypeListView',
                 service: Y.DP.TypeListViewService,
-                sideViews: {'navigationHub': true},
+                sideViews: {'navigationHub': true, 'dpTypeListOptions': true},
                 callbacks: ['open', 'checkUser', 'handleSideViews', 'handleMainView'],
             });
         },

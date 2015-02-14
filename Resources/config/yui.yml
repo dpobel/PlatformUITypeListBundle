@@ -7,16 +7,31 @@ system:
                     dependencyOf: ['ez-navigationhubviewservice']
                     path: %dp_typelist.public_dir%/js/views/services/plugins/dp-typelistnavigationplugin.js
                 dp-typelistplugin:
-                    requires: ['ez-pluginregistry', 'plugin', 'base', 'dp-typelistviewservice', 'dp-typelistview']
+                    requires:
+                        - 'ez-pluginregistry'
+                        - 'plugin'
+                        - 'base'
+                        - 'dp-typelistviewservice'
+                        - 'dp-typelistview'
+                        - 'dp-typelistoptionsviewservice'
+                        - 'dp-typelistoptionsview'
                     dependencyOf: ['ez-platformuiapp']
                     path: %dp_typelist.public_dir%/js/apps/plugins/dp-typelistplugin.js
-                dp-typelistviewservice:
+                dp-typelistoptionsviewservice:
                     requires: ['ez-viewservice', 'ez-contenttypegroupmodel', 'ez-contenttypemodel']
+                    path: %dp_typelist.public_dir%/js/views/services/dp-typelistoptionsviewservice.js
+                dp-typelistoptionsview:
+                    requires: ['ez-templatebasedview', 'dptypelistoptionsview-ez-template']
+                    path: %dp_typelist.public_dir%/js/views/dp-typelistoptionsview.js
+                dp-typelistviewservice:
+                    requires: ['ez-viewservice']
                     path: %dp_typelist.public_dir%/js/views/services/dp-typelistviewservice.js
                 dp-typelistview:
                     requires: ['ez-templatebasedview', 'dptypelistview-ez-template']
-                    dependencyOf: ['ez-platformuiapp']
                     path: %dp_typelist.public_dir%/js/views/dp-typelistview.js
+                dptypelistoptionsview-ez-template:
+                    type: 'template'
+                    path: %dp_typelist.public_dir%/templates/typelistoptions.hbt
                 dptypelistview-ez-template:
                     type: 'template'
                     path: %dp_typelist.public_dir%/templates/typelist.hbt
