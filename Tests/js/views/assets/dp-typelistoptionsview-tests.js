@@ -1,5 +1,5 @@
 YUI.add('dp-typelistoptionsview-tests', function (Y) {
-    var viewTest,
+    var viewTest, attrChangeTest, changeSelectTest,
         Assert = Y.Assert, Mock = Y.Mock;
 
     viewTest = new Y.Test.Case({
@@ -20,9 +20,15 @@ YUI.add('dp-typelistoptionsview-tests', function (Y) {
                 returns: {},
             });
 
+            this.typeIdentifier = "mtb";
+            this.sortMethod = "path";
+            this.sortOrder = "descending";
             this.view = new Y.DP.TypeListOptionsView({
                 container: '.container',
                 contentTypeGroups: this.contentTypeGroups,
+                typeIdentifier: this.typeIdentifier,
+                sortMethod: this.sortMethod,
+                sortOrder: this.sortOrder,
             });
         },
 
@@ -50,13 +56,15 @@ YUI.add('dp-typelistoptionsview-tests', function (Y) {
 
         "Test available variables in template": function () {
             var origTpl = this.view.template,
+                that = this,
                 group1Json = {
                     contentTypes: [this.type1, this.type2],
                 },
                 group2Json = {
                     contentTypes: []
                 },
-                type1Json = {}, type2Json = {};
+                type1Json = {identifier: this.typeIdentifier},
+                type2Json = {identifier: "vtt"};
 
             Mock.expect(this.group1, {
                 method: 'toJSON',
@@ -79,13 +87,44 @@ YUI.add('dp-typelistoptionsview-tests', function (Y) {
                     group2 = variables.groups[1];
 
                 Assert.areEqual(
-                    2, Y.Object.keys(variables).length,
-                    "The template should receive 2 variables"
+                    3, Y.Object.keys(variables).length,
+                    "The template should receive 3 variables"
                 );
                 Assert.areSame(
-                    this.get('sortMethods'), variables.sortMethods,
-                    "The template should receive the title"
+                    this.get('sortMethods').length, variables.sortMethods.length,
+                    "The template should receive the sort methods"
                 );
+                Y.Array.each(this.get('sortMethods'), function (method, i) {
+                    Assert.areEqual(
+                        method.identifier, variables.sortMethods[i].identifier
+                    );
+                    Assert.areEqual(
+                        method.name, variables.sortMethods[i].name
+                    );
+                    Assert.isBoolean(variables.sortMethods[i].selected);
+                    Assert.areSame(
+                        method.identifier === that.sortMethod,
+                        variables.sortMethods[i].selected
+                    );
+                });
+                Assert.areSame(
+                    this.get('sortOrders').length, variables.sortOrders.length,
+                    "The template should receive the sort orders"
+                );
+                Y.Array.each(this.get('sortOrders'), function (order, i) {
+                    Assert.areEqual(
+                        order.identifier, variables.sortOrders[i].identifier
+                    );
+                    Assert.areEqual(
+                        order.name, variables.sortOrders[i].name
+                    );
+                    Assert.isBoolean(variables.sortOrders[i].selected);
+                    Assert.areSame(
+                        order.identifier === that.sortOrder,
+                        variables.sortOrders[i].selected
+                    );
+                });
+
                 Assert.areSame(
                     group1Json, group1,
                     "The groups should be available in the template"
@@ -110,9 +149,17 @@ YUI.add('dp-typelistoptionsview-tests', function (Y) {
                     type1Json, group1.types[0],
                     "The types should be transformed to json object"
                 );
+                Assert.isTrue(
+                    type1Json.selected,
+                    "The type1 should have the selected property to true"
+                );
                 Assert.areSame(
-                    type1Json, group1.types[0],
+                    type2Json, group1.types[1],
                     "The types should be transformed to json object"
+                );
+                Assert.isFalse(
+                    type2Json.selected,
+                    "The type2 should have the selected property to false"
                 );
 
                 return origTpl.call(this, variables);
@@ -125,8 +172,134 @@ YUI.add('dp-typelistoptionsview-tests', function (Y) {
         },
     });
 
+    attrChangeTest = new Y.Test.Case({
+        name: "Type list options view attributes change test",
+
+        setUp: function () {
+            this.typeIdentifier = "mtb";
+            this.sortMethod = "path";
+            this.sortOrder = "descending";
+            this.view = new Y.DP.TypeListOptionsView({
+                container: '.container',
+                typeIdentifier: this.typeIdentifier,
+                sortMethod: this.sortMethod,
+                sortOrder: this.sortOrder,
+            });
+        },
+
+        tearDown: function () {
+            this.view.destroy();
+            delete this.view;
+        },
+
+        _testNotUIChange: function (attr) {
+            this.view.on('optionsUpdate', function () {
+                Y.fail("The optionsUpdate should have been fired");
+            });
+            this.view.set(attr, "whatever");
+        },
+
+        _testUIChange: function (attr) {
+            var evt = false;
+
+            this.view.on('optionsUpdate', function (e) {
+                evt = true;
+                Assert.areEqual(
+                    this.get('typeIdentifier'), e.listOptions.typeIdentifier
+                );
+                Assert.areEqual(
+                    this.get('sortMethod'), e.listOptions.sortMethod
+                );
+                Assert.areEqual(
+                    this.get('sortOrder'), e.listOptions.sortOrder
+                );
+            });
+            this.view.set(attr, "whatever", {src: "UI"});
+            Assert.isTrue(evt, "The event should have been fired");
+        },
+
+        "Should fire the optionsUpdate event (typeIdentifier)": function () {
+            this._testUIChange('typeIdentifier');
+        },
+
+        "Should not fire the optionsUpdate event (typeIdentifier)": function () {
+            this._testNotUIChange('typeIdentifier');
+        },
+
+        "Should fire the optionsUpdate event (sortOrder)": function () {
+            this._testUIChange('sortOrder');
+        },
+
+        "Should not fire the optionsUpdate event (sortOrder)": function () {
+            this._testNotUIChange('sortOrder');
+        },
+
+        "Should fire the optionsUpdate event (sortMethod)": function () {
+            this._testUIChange('sortMethod');
+        },
+
+        "Should not fire the optionsUpdate event (sortMethod)": function () {
+            this._testNotUIChange('sortMethod');
+        },
+    });
+
+    changeSelectTest = new Y.Test.Case({
+        name: "Type list options view attributes change test",
+
+        setUp: function () {
+            this.typeIdentifier = "mtb";
+            this.sortMethod = "path";
+            this.sortOrder = "descending";
+            this.view = new Y.DP.TypeListOptionsView({
+                container: '.container',
+                typeIdentifier: this.typeIdentifier,
+                sortMethod: this.sortMethod,
+                sortOrder: this.sortOrder,
+            });
+            this.view.render();
+        },
+
+        tearDown: function () {
+            this.view.destroy();
+            delete this.view;
+        },
+
+        _testAttr: function (attr) {
+            var select = this.view.get('container').one("[name='" + attr + "']"),
+                change = false;
+
+            this.view.after(attr + 'Change', function (e) {
+                change = true;
+                Assert.areEqual(
+                    "UI", e.src,
+                    "The src of the event should be UI"
+                );
+                Assert.areEqual(
+                    select.get('value'), e.newVal,
+                    "The new value of the attribute should be the select value"
+                );
+            });
+            select.simulate('change');
+            Assert.isTrue(change, "The attribute should have been changed");
+        },
+
+        "Should update the attribute typeIdentifier": function () {
+            this._testAttr("typeIdentifier");
+        },
+
+        "Should update the attribute sortOrder": function () {
+            this._testAttr("sortOrder");
+        },
+
+        "Should update the attribute sortMethod": function () {
+            this._testAttr("sortMethod");
+        },
+    });
+
     Y.Test.Runner.setName("Type list options view");
     Y.Test.Runner.add(viewTest);
+    Y.Test.Runner.add(attrChangeTest);
+    Y.Test.Runner.add(changeSelectTest);
 }, '', {
-    requires: ['test', 'dp-typelistoptionsview']
+    requires: ['test', 'node-event-simulate', 'dp-typelistoptionsview']
 });

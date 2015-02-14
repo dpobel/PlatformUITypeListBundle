@@ -4,12 +4,12 @@
         <label for="dp-typelist" class="dp-typelist-option-label">
         Content types
         </label>
-        <select id="dp-typelist" class="dp-typelist-option-list">
+        <select id="dp-typelist" name="typeIdentifier" class="dp-typelist-option-list">
             <option value="">All</option>
         {{#each groups}}
             <optgroup label="{{ identifier }}">
             {{# each types}}
-                <option value="{{ id }}">{{ names.[eng-GB] }}</option>
+                <option value="{{ identifier }}"{{#if selected}} selected="selected"{{/if}}>{{ names.[eng-GB] }}</option>
             {{/each}}
             </optgroup>
         {{/each}}
@@ -20,9 +20,9 @@
         <label for="dp-typelist-sort" class="dp-typelist-option-label">
         Sort by
         </label>
-        <select id="dp-typelist-sort" class="dp-typelist-option-list">
+        <select id="dp-typelist-sort" name="sortMethod" class="dp-typelist-option-list">
         {{#each sortMethods}}
-            <option value="{{ identifier }}">{{ name }}</option>
+            <option value="{{ identifier }}"{{#if selected}} selected="selected"{{/if}}>{{ name }}</option>
         {{/each}}
         </select>
     </div>
@@ -31,13 +31,10 @@
         <label for="dp-typelist-order" class="dp-typelist-option-label">
         Sort order
         </label>
-        <select id="dp-typelist-order" class="dp-typelist-option-list">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
+        <select id="dp-typelist-order" name="sortOrder" class="dp-typelist-option-list">
+        {{#each sortOrders}}
+            <option value="{{ identifier }}"{{#if selected}} selected="selected"{{/if}}>{{ name }}</option>
+        {{/each}}
         </select>
-    </div>
-
-    <div class="dp-typelist-tools">
-        <button class="ez-button pure-button font-icon">Update the list</button>
     </div>
 </div>
