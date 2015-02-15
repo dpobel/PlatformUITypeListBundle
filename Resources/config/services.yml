@@ -1,4 +1,6 @@
+parameters:
+    dp.platformuitypelist.controller.typelist.class: DP\PlatformUITypeListBundle\Controller\TypeListController
 services:
-#    dp_platform_ui_type_list.example:
-#        class: DP\PlatformUITypeListBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    dp.platformuitypelist.controller.typelist:
+        class: %dp.platformuitypelist.controller.typelist.class%
+        parent: ezpublish.controller.base

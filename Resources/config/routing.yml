@@ -1,3 +1,8 @@
-dp_platform_ui_type_list_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: DPPlatformUITypeListBundle:Default:index }
+dp_platformuitypelist_typelist:
+    path:     /dp/typelist/{sortMethod}/{sortOrder}/{typeIdentifier}
+    defaults:
+        sortMethod: "modified"
+        sortOrder: "descending"
+        typeIdentifier: ""
+        _controller: dp.platformuitypelist.controller.typelist:listAction
+    methods: [GET]
