@@ -27,7 +27,12 @@ YUI.add('dp-typelistnavigationplugin', function (Y) {
                     title: "Contents by types",
                     identifier: "contents-by-types",
                     route: {
-                        name: "dpTypeList"
+                        name: "dpTypeList",
+                        params: {
+                            typeIdentifier: "folder",
+                            sortMethod: "modified",
+                            sortOrder: "descending",
+                        }
                     }
                 }
             }, 'platform');

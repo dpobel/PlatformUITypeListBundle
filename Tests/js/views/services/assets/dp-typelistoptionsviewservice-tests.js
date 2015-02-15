@@ -1,5 +1,5 @@
 YUI.add('dp-typelistoptionsviewservice-tests', function (Y) {
-    var getViewParametersTest,
+    var getViewParametersTest, optionsUpdateTest,
         loadTest,
         Mock = Y.Mock,
         Assert = Y.Assert;
@@ -21,6 +21,7 @@ YUI.add('dp-typelistoptionsviewservice-tests', function (Y) {
                 params;
 
             this.service._set('contentTypeGroups', groups);
+            this.service.set('request', {params: {}});
             params = this.service.getViewParameters();
 
             Assert.isObject(params, "The view parameters should be an object");
@@ -28,9 +29,32 @@ YUI.add('dp-typelistoptionsviewservice-tests', function (Y) {
                 groups, params.contentTypeGroups,
                 "The view parameters should contain the content type groups"
             );
-            Assert.areEqual(
-                1, Y.Object.keys(params).length,
-                "The view parameters should contain only the content type groups"
+        },
+
+        "Should return the filter options from the request": function () {
+            var requestParams = {
+                    typeIdentifier: "folder",
+                    sortMethod: "name",
+                    sortOrder: "ascending",
+                }, params;
+
+            this.service.set('request', {
+                params: requestParams,
+            });
+            params = this.service.getViewParameters();
+
+            Assert.isObject(params, "The view parameters should be an object");
+            Assert.areSame(
+                requestParams.typeIdentifier, params.typeIdentifier,
+                "The view parameters should contain the type identifier"
+            );
+            Assert.areSame(
+                requestParams.sortOrder, params.sortOrder,
+                "The view parameters should contain the sort order"
+            );
+            Assert.areSame(
+                requestParams.sortMethod, params.sortMethod,
+                "The view parameters should contain the sort method"
             );
         },
     });
@@ -216,9 +240,51 @@ YUI.add('dp-typelistoptionsviewservice-tests', function (Y) {
         },
     });
 
+    optionsUpdateTest = new Y.Test.Case({
+        name: "Type list options view service optionsUpdate event test",
+
+        setUp: function () {
+            var that = this;
+
+            this.app = new Mock();
+            Mock.expect(this.app, {
+                method: 'navigateTo',
+                args: ['dpTypeList', Mock.Value.Object],
+                run: function (routeName, params) {
+                    that.routeParams = params;
+                }
+            });
+            this.service = new Y.DP.TypeListOptionsViewService({
+                app: this.app,
+            });
+        },
+
+        tearDown: function () {
+            this.service.destroy();
+            delete this.app;
+            delete this.service;
+        },
+
+        "Should redirect to the dpTypeList route": function () {
+            var listOptions = {
+                    typeIdentifier: "folder",
+                    sortMethod: "name",
+                    sortOrder: "ascending",
+                };
+
+            this.service.fire('optionsUpdate', {
+                listOptions: listOptions,
+            });
+
+            Mock.verify(this.app);
+            Assert.areSame(this.routeParams, listOptions);
+        },
+    });
+
     Y.Test.Runner.setName("Type list options view service");
     Y.Test.Runner.add(getViewParametersTest);
     Y.Test.Runner.add(loadTest);
+    Y.Test.Runner.add(optionsUpdateTest);
 }, '', {
     requires: ['test', 'dp-typelistoptionsviewservice']
 });

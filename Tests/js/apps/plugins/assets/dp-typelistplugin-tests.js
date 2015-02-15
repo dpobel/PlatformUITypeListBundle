@@ -67,8 +67,8 @@ YUI.add('dp-typelistplugin-tests', function (Y) {
                 "The route should be named dpTypeList"
             );
             Assert.areEqual(
-                '/dp/typelist', route.path,
-                "The route should have /dp/typelist as the path"
+                '/dp/typelist/:typeIdentifier/:sortMethod/:sortOrder', route.path,
+                "The route should have the type list path"
             );
             Assert.areEqual(
                 'dpTypeListView', route.view,

@@ -19,6 +19,21 @@ YUI.add('dp-typelistoptionsviewservice', function (Y) {
      * @extends eZ.ViewService
      */
     Y.DP.TypeListOptionsViewService = Y.Base.create('dpTypeListOptionsViewService', Y.eZ.ViewService, [], {
+        initializer: function () {
+            this.after('*:optionsUpdate', this._updateList);
+        },
+
+        /**
+         * Navigates to the type list for the new options
+         *
+         * @method _updateList
+         * @protected
+         * @param {EventFacade} e
+         */
+        _updateList: function (e) {
+            this.get('app').navigateTo('dpTypeList', e.listOptions);
+        },
+
         _load: function (callback) {
             if ( this.get('contentTypeGroups') ) {
                 callback();
@@ -28,8 +43,13 @@ YUI.add('dp-typelistoptionsviewservice', function (Y) {
         },
 
         _getViewParameters: function () {
+            var p = this.get('request').params;
+
             return {
                 contentTypeGroups: this.get('contentTypeGroups'),
+                typeIdentifier: p.typeIdentifier,
+                sortMethod: p.sortMethod,
+                sortOrder: p.sortOrder,
             };
         },
 
@@ -80,7 +100,7 @@ YUI.add('dp-typelistoptionsviewservice', function (Y) {
              */
             contentTypeGroups: {
                 readOnly: true,
-            }
+            },
         },
     });
 });

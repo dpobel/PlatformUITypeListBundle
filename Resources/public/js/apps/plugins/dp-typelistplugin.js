@@ -35,7 +35,7 @@ YUI.add('dp-typelistplugin', function (Y) {
             };
             app.route({
                 name: 'dpTypeList',
-                path: '/dp/typelist',
+                path: '/dp/typelist/:typeIdentifier/:sortMethod/:sortOrder',
                 view: 'dpTypeListView',
                 service: Y.DP.TypeListViewService,
                 sideViews: {'navigationHub': true, 'dpTypeListOptions': true},
